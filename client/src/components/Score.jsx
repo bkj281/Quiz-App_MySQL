@@ -8,15 +8,18 @@ const Score = () => {
   console.log(location.state.acc, location.state.time);
 
   const [score, setScore] = useState(0);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     let id = 0;
-    for (let i of location.state.acc) {
-      if (i)
+    let time = 0;
+    for (let i = 0; i< 5; ++i) {
+      if (location.state.acc[i])
         id += 1;
-      console.log(i);
+      time += location.state.time[i];
     }
     setScore(id);
+    setTotal(time);
   }, []);
 
   let data = location.state.acc.map((a, id) => (
@@ -36,8 +39,11 @@ const Score = () => {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col xs={6}>
             <h2>Score: {score}/5</h2>
+          </Col>
+          <Col xs={6}>
+            <h2>Time Taken: {total.toFixed(2)} (s)</h2>
           </Col>
         </Row>
         <Row>
